@@ -1,4 +1,4 @@
-const character = 'mario';
+const character = 'mario maridii';
 
 console.log(character);
 
