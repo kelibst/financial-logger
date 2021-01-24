@@ -1,4 +1,4 @@
-import { HasFormatter } from "../inferfaces/HasFormertter";
+import { HasFormatter } from "../inferfaces/HasFormertter.js";
 
 
 export class Payment implements HasFormatter {
