@@ -12,7 +12,6 @@ const list = new ListTemplate(ul);
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     let doc;
-    console.log(type.value);
     doc =
         type.value === "invoice"
             ? new Invoice(tofrom.value.trim(), details.value.trim(), amount.valueAsNumber)

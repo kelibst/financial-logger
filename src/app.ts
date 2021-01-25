@@ -17,7 +17,6 @@ const list = new ListTemplate(ul);
 form.addEventListener("submit", (e: Event) => {
   e.preventDefault();
   let doc: HasFormatter;
-  console.log(type.value)
   doc =
     type.value === "invoice"
       ? new Invoice(
