@@ -2,7 +2,7 @@ import { HasFormatter } from "./inferfaces/HasFormertter.js";
 import { Invoice } from "./modules/Invoice.js";
 import { ListTemplate } from "./modules/ListTemplate.js";
 import { Payment } from "./modules/Payment.js";
-//Interfaces
+
 
 const form = document.querySelector(".new-item-form") as HTMLFormElement;
 const type = document.querySelector("#type") as HTMLSelectElement;

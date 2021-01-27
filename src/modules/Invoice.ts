@@ -6,7 +6,9 @@ export class Invoice implements HasFormatter {
       private details: string,
       public amount: number
     ) {}
-  
+      sing(){
+        console.log('kill the song');
+      }
     format() {
       return `${this.client} owes ${this.amount} for ${this.details}`;
     }
