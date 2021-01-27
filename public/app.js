@@ -1,7 +1,6 @@
 import { Invoice } from "./modules/Invoice.js";
 import { ListTemplate } from "./modules/ListTemplate.js";
 import { Payment } from "./modules/Payment.js";
-//Interfaces
 const form = document.querySelector(".new-item-form");
 const type = document.querySelector("#type");
 const tofrom = document.querySelector("#tofrom");
