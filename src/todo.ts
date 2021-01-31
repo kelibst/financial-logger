@@ -32,4 +32,6 @@ form.addEventListener("submit", (e: Event) => {
   e.preventDefault();
    const tTask = new Todo(state.value, task.value, description.value, ul)
    tTask.render()
+
+   form.reset()
 });
