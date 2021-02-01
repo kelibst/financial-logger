@@ -18,12 +18,21 @@ class Todo {
         const p = document.createElement("p");
         p.innerText = description.value.trim();
         li.append(p);
+        const btn = document.createElement('button');
+        btn.classList.add('btn-rmv');
+        btn.classList.add('btn');
+        btn.innerText = 'Remove';
+        btn.type = 'button';
+        li.append(btn);
         this.container.prepend(li);
     }
 }
+let allTask = [];
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     const tTask = new Todo(state.value, task.value, description.value, ul);
+    allTask.push(tTask);
+    console.log(allTask);
     tTask.render();
     form.reset();
 });

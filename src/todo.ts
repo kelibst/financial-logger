@@ -24,14 +24,23 @@ class Todo {
     p.innerText = description.value.trim();
     li.append(p);
 
+
+    const btn = document.createElement('button');
+    btn.classList.add('btn-rmv')
+    btn.classList.add('btn')
+    btn.innerText = 'Remove';
+    btn.type = 'button';
+    li.append(btn)
     this.container.prepend(li)
   }
 }
-
+let allTask: Todo[] = []
 form.addEventListener("submit", (e: Event) => {
   e.preventDefault();
    const tTask = new Todo(state.value, task.value, description.value, ul)
-   tTask.render()
 
+   allTask.push(tTask)
+ console.log(allTask)
+ tTask.render()
    form.reset()
 });
