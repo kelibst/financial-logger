@@ -71,6 +71,12 @@ button:hover{
 button.btn{
   margin: 1rem;
 }
+
+button.btn-edt{
+  background-color: green;
+  margin-left: 0;
+}
+
 footer a{
   text-align: center;
   display: block;

@@ -1,10 +1,22 @@
-import { TodoFormatter } from "./inferfaces/TodoFormatter";
 
 const form = document.querySelector(".new-todo-form") as HTMLFormElement;
 const state = document.querySelector("#state") as HTMLSelectElement;
 const description = document.querySelector("#description") as HTMLInputElement;
 const ul = document.querySelector(".todo-list") as HTMLUListElement;
 const task = document.querySelector("#task") as HTMLInputElement;
+
+  let allTask: Todo[] = []
+
+window.onload = (e: Event) => {
+ let  newAllTask = localStorage.getItem('allTask')
+ allTask = JSON.parse(newAllTask!)
+ if(allTask){
+   allTask.map(task => {
+    console.log(task, 'task')
+   })
+ }
+}
+
 
 class Todo {
   constructor(
@@ -30,17 +42,25 @@ class Todo {
     btn.classList.add('btn')
     btn.innerText = 'Remove';
     btn.type = 'button';
+    const btn1 = document.createElement('button');
+    btn1.classList.add('btn-edt')
+    btn1.classList.add('btn')
+    btn1.innerText = 'Edit';
+    btn1.type = 'button';
+    li.append(btn1)
     li.append(btn)
     this.container.prepend(li)
   }
 }
-let allTask: Todo[] = []
+
 form.addEventListener("submit", (e: Event) => {
   e.preventDefault();
    const tTask = new Todo(state.value, task.value, description.value, ul)
 
-   allTask.push(tTask)
- console.log(allTask)
+   allTask.push(tTask) 
+   localStorage.setItem('allTask', JSON.stringify(allTask))
  tTask.render()
    form.reset()
 });
+
+
