@@ -5,17 +5,8 @@ const description = document.querySelector("#description") as HTMLInputElement;
 const ul = document.querySelector(".todo-list") as HTMLUListElement;
 const task = document.querySelector("#task") as HTMLInputElement;
 
-  let allTask: Todo[] = []
+  
 
-window.onload = (e: Event) => {
- let  newAllTask = localStorage.getItem('allTask')
- allTask = JSON.parse(newAllTask!)
- if(allTask){
-   allTask.map(task => {
-    console.log(task, 'task')
-   })
- }
-}
 
 
 class Todo {
@@ -23,44 +14,57 @@ class Todo {
     public state: string,
     public task: string,
     public description: string,
-    private container: HTMLUListElement
-  ) {}
-
-  render(){
-    const li = document.createElement("li");
-    const h4 = document.createElement("h4");
-    h4.innerText = task.value.trim();
-    li.append(h4);
-
-    const p = document.createElement("p");
-    p.innerText = description.value.trim();
-    li.append(p);
-
-
-    const btn = document.createElement('button');
-    btn.classList.add('btn-rmv')
-    btn.classList.add('btn')
-    btn.innerText = 'Remove';
-    btn.type = 'button';
-    const btn1 = document.createElement('button');
-    btn1.classList.add('btn-edt')
-    btn1.classList.add('btn')
-    btn1.innerText = 'Edit';
-    btn1.type = 'button';
-    li.append(btn1)
-    li.append(btn)
-    this.container.prepend(li)
+  ) {
+   
   }
+}
+let allTask: Todo[] = []
+
+const renderContent = (state: string, task: string, description: string, container: HTMLUListElement) =>{
+  const li = document.createElement("li");
+  const h4 = document.createElement("h4");
+  h4.innerText = task;
+  li.append(h4);
+
+  const p = document.createElement("p");
+  p.innerText = description;
+  li.append(p);
+
+
+  const btn = document.createElement('button');
+  btn.classList.add('btn-rmv')
+  btn.classList.add('btn')
+  btn.innerText = 'Remove';
+  btn.type = 'button';
+  const btn1 = document.createElement('button');
+  btn1.classList.add('btn-edt')
+  btn1.classList.add('btn')
+  btn1.innerText = 'Edit';
+  btn1.type = 'button';
+  li.append(btn1)
+  li.append(btn)
+  container.append(li)
 }
 
 form.addEventListener("submit", (e: Event) => {
   e.preventDefault();
-   const tTask = new Todo(state.value, task.value, description.value, ul)
-
-   allTask.push(tTask) 
+  
+   const tTask = new Todo(state.value, task.value, description.value)
+   allTask.push(tTask)
+   
    localStorage.setItem('allTask', JSON.stringify(allTask))
- tTask.render()
+   renderContent(state.value, task.value, description.value, ul)
    form.reset()
 });
 
 
+
+window.onload = (e: Event) => {
+ let  newAllTask = localStorage.getItem('allTask')
+ allTask = JSON.parse(newAllTask!)
+ if(allTask){
+   allTask.map(task => {
+     renderContent(task.state, task.task, task.description, ul)
+   })
+ }
+}
