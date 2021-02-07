@@ -12,6 +12,16 @@ class Todo {
         this.description = description;
     }
 }
+window.onload = (e) => {
+    let newAllTask = localStorage.getItem("allTask");
+    let somenewAllTask = JSON.parse(newAllTask);
+    allTask = somenewAllTask;
+    if (allTask) {
+        allTask.map((task, index) => {
+            renderContent(task.state, task.task, task.description, ul, index);
+        });
+    }
+};
 const renderContent = (state, task, description, container, id) => {
     const li = document.createElement("li");
     const h4 = document.createElement("h4");
@@ -43,23 +53,25 @@ ul.addEventListener("click", (e) => {
         localStorage.setItem("allTask", JSON.stringify(Tasks));
         ul.removeChild(target.parentNode);
     }
+    else if (target.classList.contains("btn-edt")) {
+        let currentTask = allTask.find((tsk, ind) => ind !== Number(target.id.charAt(target.id.length - 1)));
+        state.value = currentTask ? currentTask.state : "";
+        task.value = currentTask ? currentTask.task : "";
+        description.value = currentTask ? currentTask.task : "";
+    }
 });
 form.addEventListener("submit", (e) => {
     e.preventDefault();
-    let allTask = [];
     const tTask = new Todo(state.value, task.value, description.value);
     debugger;
-    allTask.push(tTask);
+    allTask && allTask !== null
+        ? allTask.push(tTask)
+        : () => {
+            let allTask = [];
+            allTask.push(tTask);
+            debugger;
+        };
     localStorage.setItem("allTask", JSON.stringify(allTask));
     renderContent(state.value, task.value, description.value, ul, allTask.length - 1);
     form.reset();
 });
-window.onload = (e) => {
-    let newAllTask = localStorage.getItem("allTask");
-    allTask = JSON.parse(newAllTask);
-    if (allTask) {
-        allTask.map((task, index) => {
-            renderContent(task.state, task.task, task.description, ul, index);
-        });
-    }
-};
