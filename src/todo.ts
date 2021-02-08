@@ -13,14 +13,17 @@ class Todo {
 }
 
 window.onload = (e: Event) => {
-  let newAllTask = localStorage.getItem("allTask");
-  let somenewAllTask: Todo[] = JSON.parse(newAllTask!);
+  let newAllTask: string = localStorage.getItem("allTask") || '[]';
+  if (newAllTask){
+    let somenewAllTask: Todo[] = JSON.parse(newAllTask!);
   allTask = somenewAllTask;
   if (allTask) {
     allTask.map((task, index) => {
       renderContent(task.state, task.task, task.description, ul, index);
     });
   }
+  }
+  
 };
 
 const renderContent = (
@@ -74,22 +77,16 @@ ul.addEventListener("click", (e) => {
 
     state.value = currentTask ? currentTask.state : "";
     task.value = currentTask ? currentTask.task : "";
-    description.value = currentTask ? currentTask.task : "";
+    description.value = currentTask ? currentTask.description : "";
   }
 });
 
 form.addEventListener("submit", (e: Event) => {
   e.preventDefault();
   const tTask = new Todo(state.value, task.value, description.value);
-  debugger;
-  allTask && allTask !== null
-    ? allTask.push(tTask)
-    : () => {
-        let allTask: Todo[] = [];
-        allTask.push(tTask);
-        debugger;
-      };
-
+  
+  
+      allTask.push(tTask);
   localStorage.setItem("allTask", JSON.stringify(allTask));
   renderContent(
     state.value,

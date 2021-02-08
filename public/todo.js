@@ -13,13 +13,15 @@ class Todo {
     }
 }
 window.onload = (e) => {
-    let newAllTask = localStorage.getItem("allTask");
-    let somenewAllTask = JSON.parse(newAllTask);
-    allTask = somenewAllTask;
-    if (allTask) {
-        allTask.map((task, index) => {
-            renderContent(task.state, task.task, task.description, ul, index);
-        });
+    let newAllTask = localStorage.getItem("allTask") || '[]';
+    if (newAllTask) {
+        let somenewAllTask = JSON.parse(newAllTask);
+        allTask = somenewAllTask;
+        if (allTask) {
+            allTask.map((task, index) => {
+                renderContent(task.state, task.task, task.description, ul, index);
+            });
+        }
     }
 };
 const renderContent = (state, task, description, container, id) => {
@@ -57,20 +59,13 @@ ul.addEventListener("click", (e) => {
         let currentTask = allTask.find((tsk, ind) => ind !== Number(target.id.charAt(target.id.length - 1)));
         state.value = currentTask ? currentTask.state : "";
         task.value = currentTask ? currentTask.task : "";
-        description.value = currentTask ? currentTask.task : "";
+        description.value = currentTask ? currentTask.description : "";
     }
 });
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     const tTask = new Todo(state.value, task.value, description.value);
-    debugger;
-    allTask && allTask !== null
-        ? allTask.push(tTask)
-        : () => {
-            let allTask = [];
-            allTask.push(tTask);
-            debugger;
-        };
+    allTask.push(tTask);
     localStorage.setItem("allTask", JSON.stringify(allTask));
     renderContent(state.value, task.value, description.value, ul, allTask.length - 1);
     form.reset();
